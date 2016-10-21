@@ -1,0 +1,48 @@
+<div class="container">
+  <div class='header'>
+    <h3>Hi <%= @user.first_name %></h3>
+    <a href='/dashboard/<%= @user.id %>'>Go to Dashboard</a>
+    <% if current_user %>
+      <form action="/sessions/<%= session[:user_id] %>" method='POST'>
+        <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>' >
+        <input type='hidden' name='_method' value='DELETE' >
+        <input type='submit' value='Log Out'>
+      </form>
+    <% end %>
+  </div>
+
+  <div class="main">
+    <h3 class='subtitle'>All Products</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Seller</th>
+          <th>Date Posted</th>
+          <th>Amount</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% if @products %>
+          <tr>
+            <% @products.each do |p| %>
+              <td><%= p.name %></td>
+              <td><%= p.user.first_name %> <%= p.user.last_name %></td>
+              <td><%= p.created_at.strftime("%b %d, %Y") %></td>
+              <td>$<%= p.amount %></td>
+              <td>
+                <form action='/products/<%= p.id %>' method='POST'>
+                  <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>' >
+                  <input type='hidden' name='_method' value='PATCH' >
+                  <input type='submit' value='Buy'>
+                </form>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

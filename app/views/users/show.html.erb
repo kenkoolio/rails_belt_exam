@@ -1,0 +1,123 @@
+<div class="container">
+  <div class='header'>
+    <h3>Hi <%= @user.first_name %></h3>
+    <a href='/products'>Go to All Products</a>
+    <% if current_user %>
+      <form action="/sessions/<%= session[:user_id] %>" method='POST'>
+        <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>' >
+        <input type='hidden' name='_method' value='DELETE' >
+        <input type='submit' value='Log Out'>
+      </form>
+    <% end %>
+
+    <div class='sell_product'>
+      <h4>Sell Product</h4>
+      <% if flash[:errors] %>
+        <% flash[:errors].each do |e| %>
+          <p><% e %></p>
+        <% end %>
+      <% end %>
+        <form action='/products' method='POST'>
+          <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>' >
+          <label for='product_name'>Name: </label>
+          <input type='text' name='product[name]' id='product_name'>
+          <label for='product_amount'>Amount: </label>
+          <input type='number' name='product[amount]' step='0.01' value='0.00' placeholder="0.00" >
+          <input type='submit' value='Sell'>
+        </form>
+    </div><!-- sell_product -->
+
+    <div class='main'>
+      <div id='not_yet_sold'>
+        <h4>Your products that are not yet sold: </h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Date Posted</th>
+              <th>Amount</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% if @user.own_products.where(productable_id: nil) %>
+              <% @user.own_products.where(productable_id: nil).each do |a| %>
+                <tr>
+                  <td><%= a.name %></td>
+                  <td><%= a.created_at.strftime("%b %d, %Y") %></td>
+                  <td>$<%= a.amount %></td>
+                  <td>
+                    <form action='/products/<%= a.id %>' method="POST">
+                      <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>' >
+                      <input type='hidden' name='_method' value='DELETE' >
+                      <input type='submit' value='Remove'>
+                    </form>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div><!-- not yet sold -->
+
+      <div id='sales'>
+        <h4>Sales  </h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Date Bought</th>
+              <th>Buyer</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% if @sold_products %>
+              <% a_total = 0 %>
+              <% @sold_products.each do |b| %>
+                <tr>
+                  <td><%= b.name %></td>
+                  <td><%= b.updated_at.strftime("%b %d, %Y") %></td>
+                  <td><%= b.buyer.first_name %> <%= b.buyer.last_name %></td>
+                  <td><%= b.amount %> <% a_total += b.amount %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+        <h4>Total: $<%= a_total %></h4>
+      </div><!-- sales -->
+
+      <div id='purchases'>
+        <h4>Purchases </h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Date Bought</th>
+              <th>Seller</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% if @user.products %>
+            <% b_total = 0 %>
+              <% @user.products.each do |c| %>
+                <tr>
+                  <td><%= c.name %></td>
+                  <td><%= c.updated_at.strftime("%b %d, %Y") %></td>
+                  <td><%= c.user.first_name %> <%= c.user.last_name %></td>
+                  <td><%= c.amount %> <% b_total += c.amount %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+        <h4>Total: $<%= b_total %></h4>
+      </div><!-- purchases -->
+    </div><!-- main-->
+  </div>
+</div><!-- container -->
