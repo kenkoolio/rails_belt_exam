@@ -81,7 +81,7 @@
                   <td><%= b.name %></td>
                   <td><%= b.updated_at.strftime("%b %d, %Y") %></td>
                   <td><%= b.buyer.first_name %> <%= b.buyer.last_name %></td>
-                  <td><%= b.amount %> <% a_total += b.amount %></td>
+                  <td>$<%= b.amount %> <% a_total += b.amount %></td>
                 </tr>
               <% end %>
             <% end %>
@@ -110,7 +110,7 @@
                   <td><%= c.name %></td>
                   <td><%= c.updated_at.strftime("%b %d, %Y") %></td>
                   <td><%= c.user.first_name %> <%= c.user.last_name %></td>
-                  <td><%= c.amount %> <% b_total += c.amount %></td>
+                  <td>$<%= c.amount %> <% b_total += c.amount %></td>
                 </tr>
               <% end %>
             <% end %>
