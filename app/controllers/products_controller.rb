@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
 
   def update
     @product = Product.find(params[:id])
-    if @product && @product.user == current_user
+    if @product
       @product.update(productable: User.find(session[:user_id]))
     end
     redirect_to user_path(session[:user_id])

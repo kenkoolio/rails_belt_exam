@@ -1,6 +1,6 @@
 <div class="container">
   <div class='header'>
-    <h3>Hi <%= @user.first_name %></h3>
+    <h1>Hi <%= @user.first_name %></h1>
     <a href='/dashboard/<%= @user.id %>'>Go to Dashboard</a>
     <% if current_user %>
       <form action="/sessions/<%= session[:user_id] %>" method='POST'>
@@ -12,7 +12,7 @@
   </div>
 
   <div class="main">
-    <h3 class='subtitle'>All Products</h3>
+    <h2 class='subtitle'>All Products</h2>
     <table>
       <thead>
         <tr>
@@ -26,8 +26,8 @@
 
       <tbody>
         <% if @products %>
-          <tr>
-            <% @products.each do |p| %>
+          <% @products.each do |p| %>
+            <tr>
               <td><%= p.name %></td>
               <td><%= p.user.first_name %> <%= p.user.last_name %></td>
               <td><%= p.created_at.strftime("%b %d, %Y") %></td>
@@ -39,8 +39,8 @@
                   <input type='submit' value='Buy'>
                 </form>
               </td>
-            <% end %>
-          </tr>
+            </tr>
+          <% end %>
         <% end %>
       </tbody>
     </table>

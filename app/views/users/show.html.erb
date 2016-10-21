@@ -1,6 +1,6 @@
 <div class="container">
   <div class='header'>
-    <h3>Hi <%= @user.first_name %></h3>
+    <h1>Hi <%= @user.first_name %></h1>
     <a href='/products'>Go to All Products</a>
     <% if current_user %>
       <form action="/sessions/<%= session[:user_id] %>" method='POST'>
@@ -29,7 +29,7 @@
 
     <div class='main'>
       <div id='not_yet_sold'>
-        <h4>Your products that are not yet sold: </h4>
+        <h3>Your products that are not yet sold: </h3>
         <table>
           <thead>
             <tr>
@@ -62,7 +62,7 @@
       </div><!-- not yet sold -->
 
       <div id='sales'>
-        <h4>Sales  </h4>
+        <h3>Sales  </h3>
         <table>
           <thead>
             <tr>
@@ -91,7 +91,7 @@
       </div><!-- sales -->
 
       <div id='purchases'>
-        <h4>Purchases </h4>
+        <h3>Purchases </h3>
         <table>
           <thead>
             <tr>
