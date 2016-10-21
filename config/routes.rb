@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get "/main" => "sessions#new"
+  get "/shoes" => "products#index"
+  root "sessions#new"
+  resources :users
+  resources :products
+  resources :sessions
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

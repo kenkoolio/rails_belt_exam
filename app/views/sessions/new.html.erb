@@ -1,0 +1,41 @@
+<div class='container'>
+  <div class='login_registration'>
+    <h2>Register</h2>
+    <% if flash[:registration_errors] %>
+      <% flash[:registration_errors].each do |e| %>
+        <p><%= e %></p>
+      <% end %>
+    <% end %>
+    <form action="/users" method="POST">
+      <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>' >
+      <label for='first_name'>First Name: </label>
+      <input type='text' name='users[first_name]' id='first_name'>
+      <label for='last_name'>Last Name: </label>
+      <input type='text' name='users[last_name]' id='last_name'>
+      <label for='email'>Email: </label>
+      <input type='text' name='users[email]' id='email'>
+      <label for='password'>Password: </label>
+      <input type='password' name='users[password]' id='password'>
+      <label for='password_confirmation'>Password confirmation: </label>
+      <input type='password' name='users[password_confirmation]' id='password_confirmation'>
+      <input type='submit' value='Register'>
+    </form>
+  </div>
+
+  <div class='login_registration'>
+    <h2>Login</h2>
+    <% if flash[:login_errors] %>
+      <% flash[:login_errors].each do |k| %>
+        <p><%= k %></p>
+      <% end %>
+    <% end %>
+    <form action="/sessions" method="POST">
+      <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>' >
+      <label for='login_email'>Email: </label>
+      <input type='text' name="sessions[email]" id='login_email'>
+      <label for='login_password'>Password: </label>
+      <input type='password' name="sessions[password]" id='login_password'>
+      <input type='submit' value='Login'>
+    </form>
+  </div>
+</div><!-- container -->
