@@ -3,17 +3,17 @@
     <h1>Hi <%= @user.first_name %></h1>
     <a href='/dashboard/<%= @user.id %>'>Go to Dashboard</a>
     <% if current_user %>
-      <form action="/sessions/<%= session[:user_id] %>" method='POST'>
+      <form class='pull-right' action="/sessions/<%= session[:user_id] %>" method='POST'>
         <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>' >
         <input type='hidden' name='_method' value='DELETE' >
-        <input type='submit' value='Log Out'>
+        <input class='btn btn-danger' type='submit' value='Log Out'>
       </form>
     <% end %>
   </div>
 
   <div class="main">
     <h2 class='subtitle'>All Products</h2>
-    <table>
+    <table class='table table-striped'>
       <thead>
         <tr>
           <th>Product</th>
@@ -36,7 +36,7 @@
                 <form action='/products/<%= p.id %>' method='POST'>
                   <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>' >
                   <input type='hidden' name='_method' value='PATCH' >
-                  <input type='submit' value='Buy'>
+                  <input class='btn btn-success' type='submit' value='Buy'>
                 </form>
               </td>
             </tr>
