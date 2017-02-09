@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :get_user, only: [:show]
   before_action :sold_products, only: [:show]
+  before_action :downcase_email, only: [:create]
 
   def create
     @user = User.new(user_params)
@@ -27,5 +28,9 @@ class UsersController < ApplicationController
 
   def sold_products
     @sold_products = User.find(session[:user_id]).own_products.where.not(productable_id: nil)
+  end
+
+  def downcase_email
+    user_params[:email].downcase!
   end
 end

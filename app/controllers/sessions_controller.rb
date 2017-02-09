@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :downcase_email, only: [:create]
+
   def new
   end
 
@@ -21,5 +23,9 @@ class SessionsController < ApplicationController
   private
   def login_params
     params.require(:sessions).permit(:email, :password)
+  end
+
+  def downcase_email
+    login_params[:email].downcase!
   end
 end
